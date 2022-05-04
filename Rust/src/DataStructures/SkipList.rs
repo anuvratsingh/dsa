@@ -11,6 +11,19 @@ struct Node<K, V> {
     pub key: K,
     pub value: V,
 }
+
+// Access, Search, Insertion and Deletion are Avg O(log n)
+// Positives
+//    1. The item count is only limited by heap memory.
+//    2. The search is really efficient.
+//    3. It is less complex to implement than many trees.
+// Negatives
+//    1. Memory efficiency: lots and lots of pointers create overhead
+//    2. Implementation complexity.
+//    3. Sorting required.
+//    4. Updates are expensive.
+//    5. Probabilistic approach to elevating nodes onto certain levels.
+
 #[derive(Clone)]
 pub struct BestTransactionLog<K, V> {
     head: Link<K, V>,
