@@ -2,6 +2,22 @@ use std::cmp;
 
 type Node<T> = Option<T>;
 const MIN_SIZE: usize = 8;
+// Access & Search are Avg O(1)
+// Insertion and Deletion are Avg O(n)
+// Positives
+//    1. Speed: arrays/slices make things really fast.
+//    2. Simple and fast element access.
+//    3. Clear ownership structures.
+//    4. Fast append and iteration.
+//    5. Very CPU cache-friendly.
+// Negatives
+//    1. Operations other than append will require to shift elements.
+//    2. Growth strategy is not memory-efficient.
+//    3. A single large chunk of memory is required
+//    Size is limited by usize type, which differs from platform to
+//    platform.
+//    4. Growth speed decreases with list size.
+
 pub struct TimestampSaver<T> {
     buf: Box<[Node<T>]>,
     cap: usize,
