@@ -6,8 +6,8 @@ mod DataStructures;
 #[cfg(test)]
 mod test {
     use crate::DataStructures::{
-        DoublyLinkedList::BetterTransactionLog, SinglyLinkedList::TransactionLog,
-        SkipList::BestTransactionLog,
+        DoublyLinkedList::BetterTransactionLog, DynamicArray::TimestampSaver,
+        SinglyLinkedList::TransactionLog, SkipList::BestTransactionLog,
     };
 
     // Singly Linked List SLL
@@ -83,5 +83,18 @@ mod test {
         assert_eq!(list.find(7), Some("Seven"));
         assert_eq!(list.find(13), Some("Thirteen"));
         assert_eq!(list.find(18), None);
+    }
+
+    // Dynamic Array
+    #[test]
+    fn da() {
+        let mut array = TimestampSaver::new_empty();
+        assert_eq!(array.at(1), None);
+
+        array.append("One");
+        array.append("Two");
+
+        assert_eq!(array.at(0), Some("One"));
+        assert_eq!(array.at(1), Some("Two"));
     }
 }
