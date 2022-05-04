@@ -125,11 +125,11 @@ impl<T> BetterTransactionLog<T> {
             .as_ref()
             .map(|node| Ref::map(node.borrow(), |node| &node.value))
     }
-    pub fn back_iter(self) -> ListIterator<T> {
+    pub fn iter_bwd(self) -> ListIterator<T> {
         ListIterator::new(self.tail)
     }
 
-    pub fn iter(self) -> ListIterator<T> {
+    pub fn iter_fwd(self) -> ListIterator<T> {
         ListIterator::new(self.head.clone())
     }
 }
