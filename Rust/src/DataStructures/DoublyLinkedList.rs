@@ -12,8 +12,16 @@ struct Node<T> {
 
 type Link<T> = Option<Rc<RefCell<Node<T>>>>;
 
+// Requirements
+//      1. Append a command to an existing list.
+//      2. Replay every command from the beginning to the end—in
+//      that order.
+//      3. Move forward and backward through the log.
+//      4. Moves don't consume the log.
+
 // Access & Search are Avg O(n)
 // Insertion and Deletion are Avg O(1)
+
 // Positives
 //    1.Low overhead allocation per item (but more than the singly
 //    linked list).

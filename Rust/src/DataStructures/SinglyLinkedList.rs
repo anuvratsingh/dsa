@@ -6,6 +6,11 @@ struct Node<T> {
     value: T,
     next: Option<Link<T>>,
 }
+// Requirements
+//      1. Append a command to an existing list.
+//      2. Replay every command from the beginning to the end—in
+//      that order.
+
 // Access & Search are Avg O(n) 
 // Insertion and Deletion are Avg O(1)
 

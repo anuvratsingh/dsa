@@ -2,8 +2,15 @@ use std::cmp;
 
 type Node<T> = Option<T>;
 const MIN_SIZE: usize = 8;
+
+// Requirements
+//    1. Save a transaction's timestamp in a list.
+//    2. Access the elements quickly by index, in any order.
+//    3. Iterate the items in the order they were saved.
+
 // Access & Search are Avg O(1)
 // Insertion and Deletion are Avg O(n)
+
 // Positives
 //    1. Speed: arrays/slices make things really fast.
 //    2. Simple and fast element access.

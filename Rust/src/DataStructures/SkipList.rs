@@ -12,7 +12,13 @@ struct Node<K, V> {
     pub value: V,
 }
 
+// Requirements
+//      1. A time associated with the logged transaction.
+//      2. To be able to quickly jump to an arbitrary time.
+//      3. To start iterating from there.
+
 // Access, Search, Insertion and Deletion are Avg O(log n)
+
 // Positives
 //    1. The item count is only limited by heap memory.
 //    2. The search is really efficient.
