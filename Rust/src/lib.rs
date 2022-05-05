@@ -5,10 +5,25 @@ mod DataStructures;
 
 #[cfg(test)]
 mod test {
+    use std::{cell::RefCell, fmt::Debug};
+
+    use rand::seq::SliceRandom;
+
     use crate::DataStructures::{
-        DoublyLinkedList::BetterTransactionLog, DynamicArray::TimestampSaver,
-        SinglyLinkedList::TransactionLog, SkipList::BestTransactionLog,
+        BinarySearchTree::{DeviceRegistry, IoTDevice},
+        DoublyLinkedList::BetterTransactionLog,
+        DynamicArray::TimestampSaver,
+        SinglyLinkedList::TransactionLog,
+        SkipList::BestTransactionLog,
     };
+
+    fn new_device_with_id<I: Debug + Copy, A: From<String>>(id: I) -> IoTDevice<I, A> {
+        IoTDevice::new(
+            id,
+            format!("Address is {:?}", id),
+            format!("Path is {:?}", id),
+        )
+    }
 
     // Singly Linked List SLL
     #[test]
@@ -96,5 +111,46 @@ mod test {
 
         assert_eq!(array.at(0), Some("One"));
         assert_eq!(array.at(1), Some("Two"));
+    }
+    // Binary Search Tree
+    #[test]
+    fn bst() {
+        let mut tree = DeviceRegistry::<usize, &str>::new_empty();
+        assert_eq!(tree.find(10), None);
+
+        tree.add(IoTDevice::new(1, "One Add", "One Path"));
+        tree.add(IoTDevice::new(2, "Two Add", "Two Path"));
+        tree.add(IoTDevice::new(3, "Three Add", "Three Path"));
+
+        assert_eq!(tree.find(2), Some(IoTDevice::new(2, "Two Add", "Two Path")));
+        assert_eq!(
+            tree.find(3),
+            Some(IoTDevice::new(3, "Three Add", "Three Path"))
+        );
+    }
+
+    #[test]
+    fn bst_walk_in_order() {
+        let len = 10;
+        let mut tree = DeviceRegistry::<usize, String>::new_empty();
+        let mut items: Vec<IoTDevice<usize, String>> =
+            (0..len).map(|id| new_device_with_id(id)).collect();
+
+        let mut rng = rand::thread_rng();
+        items.shuffle(&mut rng);
+
+        for item in items.iter() {
+            tree.add(item.clone());
+        }
+
+        assert_eq!(tree.length, len);
+
+        let v: RefCell<Vec<IoTDevice<usize, String>>> = RefCell::new(Vec::new());
+        tree.walk(|n| v.borrow_mut().push(n.clone()));
+
+        let mut items = items;
+
+        items.sort_by(|a, b| b.id.cmp(&a.id));
+        assert_eq!(v.into_inner(), items);
     }
 }
